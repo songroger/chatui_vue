@@ -1,0 +1,46 @@
+{
+  "name": "chatui",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite --force --mode dev --host 0.0.0.0",
+    "build": "tsc && vite build --mode prod",
+  },
+  "dependencies": {
+    "compressorjs": "^1.1.1",
+    "core-js": "^3.6.5",
+    "socket.io-client": "^4.4.0",
+    "state": "^0.2.0",
+    "vue": "^3.2.33",
+    "vue-router": "^4.0.14",
+    "vuex": "^4.0.2",
+    "vuex-persisted": "^0.0.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-template-compiler": "^2.6.11",
+    "@vitejs/plugin-vue": "^3.0.0",
+    "vite": "^3.0.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
