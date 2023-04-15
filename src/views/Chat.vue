@@ -1,8 +1,13 @@
 <template>
   <div class="chat">
     <div class="chat__header">
+    <a href=""> 
       <span class="chat__header__greetings">
-        Chatbot
+        🍋Chatbot
+      </span>
+    </a>
+      <span class="chat__header__menu">
+        ...
       </span>
     </div>
     <chat-list :msgs="msgData"></chat-list>
@@ -70,16 +75,19 @@ export default {
                             }],
                   model: this.key
                           });
-        this.$store.commit('setRequestData', response.data.data.reply);
-        // console.log(this.$store.state.requestData)
-        this.pushMsgData({
-                    from: {
-                      name: "",
-                      avatar: "/assets/gpt.png",
-                    },
-                    msg: response.data.data.reply,
-                  });
-        // console.log(this.$store.state.msgData)
+        if (response.data.code != 0) {
+          this.$store.commit('setRequestData', response.data.data.reply);
+          // console.log(this.$store.state.requestData)
+          this.pushMsgData({
+                      from: {
+                        name: "",
+                        avatar: "/assets/gpt.png",
+                      },
+                      msg: response.data.data.reply,
+                    });
+          // console.log(this.$store.state.msgData)
+        }
+        console.log(response.data.errorMsg)
       } catch (error) {
         console.log(error);
       }
@@ -127,7 +135,16 @@ export default {
   font-weight: 700;
 }
 
+.chat__header a {
+  text-decoration: none;
+}
+
 .chat__header__greetings {
   color: #292929;
+}
+.chat__header__menu {
+  color: #292929;
+  float: right;
+  font-weight: 700;
 }
 </style>

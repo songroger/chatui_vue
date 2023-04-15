@@ -13,9 +13,24 @@
       accept="image/*"
       style="display: none"
     /> -->
+    <div class="CardText">
+      📝Notes:
+    <p>
+      1.Remembers what user said earlier in the conversation;
+    </p>
+    <p>
+      2.Allows user to provide follow-up corrections. Trained to decline inappropriate requests;
+    </p>
+    <p>
+      3.May occasionally generate incorrect information, produce harmful instructions or biased content.
+    </p>
+    </div>
     <div class="login__form__username">
       <label for="input-username" class="login__form__username__label">
           请输入你的key.
+      </label>
+      <label v-if="errorMsg" class="login__form__username__label">
+          Error: {{ errorMsg }}
       </label>
       <input
         id="input-username"
@@ -25,13 +40,15 @@
         @keyup.enter="joinSubmit"
         required
       />
-      <!-- <button @click="joinSubmit">JOIN</button> -->
+      <button class="login__button" @click="joinSubmit">login</button>
     </div>
   </div>
 </template>
 
 <script>
 import Compressor from "compressorjs";
+import { mapActions} from "vuex";
+
 
 export default {
   data() {
@@ -39,9 +56,18 @@ export default {
       userImage: "../assets/gpt.png",
       userName: "",
       key: "",
+      errorMsg: ""
     };
   },
+  created() {
+    this.key = JSON.parse(localStorage.getItem('privateKey'));
+    if (this.key != "") {
+      this.userName = this.key
+    }
+  },
   methods: {
+    ...mapActions(['login']),
+
     uploadImages(e) {
       const imgFile = e.target.files[0];
       const vueThis = this;
@@ -69,7 +95,7 @@ export default {
       });
     },
 
-    joinSubmit() {
+    async joinSubmit() {
       const userData = {
         userImage: this.userImage,
         userName: this.userName,
@@ -77,11 +103,19 @@ export default {
       };
 
       if (userData.userName) {
-        this.$store.dispatch("login", userData);
-        this.$router.push({
-          name: "chat",
-          params: { userData: userData },
-        });
+        // this.$store.dispatch("login", userData);
+        const response = await this.login(userData);
+
+        // console.log(response.data.data)
+        if (response.data.code != 0) {
+          this.$store.commit('setPrivateKey', userData);
+          this.$router.push({
+                            name: "chat",
+                            params: { userData: userData },
+                          });
+        }
+        this.errorMsg = response.data.errorMsg
+        console.log(response.data.errorMsg)
       }
     },
   },
@@ -102,8 +136,8 @@ export default {
 }
 
 .login__form__avatar {
-  height: 100px;
-  width: 100px;
+  height: 60px;
+  width: 60px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -118,8 +152,8 @@ export default {
   right: 0;
 
   opacity: 0;
-  height: 100px;
-  width: 100px;
+  height: 60px;
+  width: 60px;
   border-radius: 50%;
   transition: 0.3s ease;
   display: flex;
@@ -132,15 +166,22 @@ export default {
   opacity: 0.2;
 }*/
 
+.CardText {
+  border-radius: 12px;
+  background: #fff;
+  padding: 20px;
+  color: #333;
+}
+
 .login__form__username {
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .login__form__username__label {
   display: block;
   text-align: center;
   font-weight: 700;
-  color: #292929;
+  color: #727271;
 }
 
 .login__form__username__input {
@@ -150,10 +191,21 @@ export default {
   border: none;
   border-bottom: 1.5px solid #afb4b8;
   text-align: center;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .login__form__username__input:focus {
   outline: none;
+}
+
+.login__button {
+  background-color: #2a932e;
+  border: none;
+  color: white;
+  /*padding: 15px 32px;*/
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  /*font-size: 16px;*/
 }
 </style>

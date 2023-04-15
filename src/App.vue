@@ -44,7 +44,7 @@ body {
   /*max-width: 375px;*/
   height: 620px;
   background-color: #ffffff;
-  margin: 1rem auto 0rem;
+  /*margin: 1rem auto 0rem;*/
   border-radius: 1.5rem;
   box-shadow: 0px 1px 20px #9c9cc855;
 }

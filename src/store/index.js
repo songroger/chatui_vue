@@ -26,8 +26,15 @@ const store = createStore({
         throw error;
       }
     },
-    login({ commit }, userData) {
-      commit("setPrivateKey", userData);
+    async login(context, userData) {
+      try {
+        const response = await axios.post('/mykey', { orderId: userData.key});
+        // commit("setPrivateKey", userData);
+        return response;
+      } catch (error) {
+        throw error;
+      }
+      
     }
   },
   // mutations: {
