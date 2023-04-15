@@ -87,7 +87,7 @@ export default {
   margin: 0.4rem 0 0 1rem;
   border-radius: 20px 20px 0px 20px;
   max-width: 180px;
-  background-color: #bbc4ef;
+  background-color: #6bb657;
   color: #ffffff;
   padding: 0.8rem;
   font-size: 14px;
@@ -142,7 +142,7 @@ export default {
 .chat__yourmessage__paragraph {
   margin: 0.4rem 1rem 0 0;
   border-radius: 0px 20px 20px 20px;
-  background-color: #f3f3f3;
+  background-color: #e0eee1;
   max-width: 180px;
   color: #414141;
   padding: 0.8rem;
