@@ -41,7 +41,7 @@ body {
 }
 
 .container {
-  max-width: 375px;
+  /*max-width: 375px;*/
   height: 620px;
   background-color: #ffffff;
   margin: 1rem auto 0rem;
@@ -59,7 +59,7 @@ body {
   font-family: "Golden Plains - Demo";
   /*font-size: 4rem;*/
   text-decoration: none;
-  margin-top: 3rem;
+  margin-top: 2rem;
   /*margin-bottom: -10px;*/
   color: #00000;
 }
