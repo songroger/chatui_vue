@@ -6,6 +6,14 @@
       :class="[isSame ? '' : 'chat__first']"
     >
       <!-- <p class="chat__yourmessage__time">23:38</p> -->
+      <div class="chat__mymessage__avartar">
+        <img
+          :src="avatar"
+          alt=""
+          v-if="!isSame"
+          class="chat__mymessage__img"
+        />
+      </div>
       <p class="chat__mymessage__paragraph">{{ msg.msg }}</p>
     </div>
     <div
@@ -68,7 +76,7 @@ export default {
 <style>
 .chat__mymessage {
   display: flex;
-  justify-content: right;
+  /*justify-content: right;*/
   align-items: flex-end;
   margin: 0;
   min-height: 40px;
@@ -83,6 +91,18 @@ export default {
   color: #ffffff;
   padding: 0.8rem;
   font-size: 14px;
+}
+
+.chat__mymessage__avartar {
+  width: 40px;
+  /*margin-left: 1rem;*/
+}
+
+.chat__mymessage__img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .chat__first {

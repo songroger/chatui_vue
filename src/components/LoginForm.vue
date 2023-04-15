@@ -38,6 +38,7 @@ export default {
     return {
       userImage: "../assets/gpt.png",
       userName: "",
+      key: "",
     };
   },
   methods: {
@@ -72,6 +73,7 @@ export default {
       const userData = {
         userImage: this.userImage,
         userName: this.userName,
+        key: this.userName
       };
 
       if (userData.userName) {

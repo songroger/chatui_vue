@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <router-view class="container" />
-    <!-- <div class="app__brand">
-      <p @click="moveToHome" class="app__logo">GPT</p>
+    <div class="app__brand">
+      <p @click="moveToHome" class="app__logo">Roger</p>
       <div class="app__copyright">ⓒ 2023. All Right Reserved.</div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -57,15 +57,15 @@ body {
 
 .app__logo {
   font-family: "Golden Plains - Demo";
-  font-size: 4rem;
+  /*font-size: 4rem;*/
   text-decoration: none;
   margin-top: 3rem;
-  margin-bottom: -10px;
-  color: #ffffff;
+  /*margin-bottom: -10px;*/
+  color: #00000;
 }
 
 .app__copyright {
   font-size: 10px;
-  color: #ffffff;
+  color: #000000;
 }
 </style>

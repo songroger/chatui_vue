@@ -2,7 +2,7 @@
   <div class="chat">
     <div class="chat__header">
       <span class="chat__header__greetings">
-        Chatgpt{{ userData.userName }}
+        Chatbot
       </span>
     </div>
     <chat-list :msgs="msgData"></chat-list>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
+import { mapMutations, mapActions, mapState } from "vuex";
 import ChatList from "@/components/ChatList.vue";
 import ChatForm from "@/components/ChatForm.vue";
 import Constant from "@/Constant";
@@ -20,6 +20,7 @@ export default {
   data() {
     return {
       userData: null,
+      key: null,
     };
   },
   components: {
@@ -29,45 +30,77 @@ export default {
   computed: {
     ...mapState({
       msgData: (state) => state.socket.msgData,
+      requestData: (state) => null,
     }),
   },
   created() {
     this.userData = this.$route.params.userData;
+    this.key = JSON.parse(localStorage.getItem('privateKey'));
+    // console.log(this.userData.userName)
   },
 
   mounted() {
-    this.$socket.on("chat", (data) => {
-      this.pushMsgData(data);
 
-      setTimeout(() => {
-        const element = document.getElementById("chat__body");
-        element.scrollTop = element.scrollHeight;
-      }, 0);
-    });
+    //   setTimeout(() => {
+    //     const element = document.getElementById("chat__body");
+    //     element.scrollTop = element.scrollHeight;
+    //   }, 0);
+    // });
   },
 
   methods: {
+    ...mapActions(['sendPostRequest']),
     ...mapMutations({
       pushMsgData: Constant.PUSH_MSG_DATA,
     }),
 
-    sendMessage(msg) {
-      const username = this.userData.userName;
-      const avatar = this.userData.userImage;
+    async sendMessage(msg) {
+      try {
+        this.pushMsgData({
+                    from: {
+                      name: "DevplaCalledMe",
+                      avatar: "/assets/user.png",
+                    },
+                    msg,
+                  });
+        const response = await this.sendPostRequest({
+                  messages: [{
+                            "role": "user",
+                            "content": msg
+                            }],
+                  model: this.key
+                          });
+        this.$store.commit('setRequestData', response.data.data.reply);
+        // console.log(this.$store.state.requestData)
+        this.pushMsgData({
+                    from: {
+                      name: "",
+                      avatar: "/assets/gpt.png",
+                    },
+                    msg: response.data.data.reply,
+                  });
+        // console.log(this.$store.state.msgData)
+      } catch (error) {
+        console.log(error);
+      }
 
-      this.pushMsgData({
-        from: {
-          name: "DevplaCalledMe",
-          avatar: avatar,
-        },
-        msg,
-      });
+    // sendMessage(msg) {
+    //   const username = this.userData.userName;
+    //   const avatar = this.userData.userImage;
 
-      this.$sendMessage({
-        name: username,
-        msg,
-        avatar: avatar,
-      });
+    //   this.pushMsgData({
+    //     from: {
+    //       name: "DevplaCalledMe",
+    //       avatar: avatar,
+    //     },
+    //     msg,
+    //   });
+
+    //   this.$sendMessage({
+    //     name: username,
+    //     msg,
+    //     avatar: avatar,
+    //   });
 
       setTimeout(() => {
         const element = document.getElementById("chat__body");
