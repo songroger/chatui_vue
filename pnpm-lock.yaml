@@ -48,6 +48,9 @@ devDependencies:
   eslint-plugin-vue:
     specifier: ^6.2.2
     version: 6.2.2(eslint@6.7.2)
+  typescript:
+    specifier: ^4.9.3
+    version: 4.9.3
   vite:
     specifier: ^3.0.0
     version: 3.0.0
@@ -1369,6 +1372,12 @@ packages:
   /type-fest@0.8.1:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
+    dev: true
+
+  /typescript@4.9.3:
+    resolution: {integrity: sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
     dev: true
 
   /uri-js@4.4.1:
