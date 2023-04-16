@@ -75,7 +75,7 @@ export default {
                             }],
                   model: this.key
                           });
-        if (response.data.code != 0) {
+        if (response.data.code == 0) {
           this.$store.commit('setRequestData', response.data.data.reply);
           // console.log(this.$store.state.requestData)
           this.pushMsgData({

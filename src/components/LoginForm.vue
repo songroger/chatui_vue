@@ -15,19 +15,22 @@
     /> -->
     <div class="CardText">
       📝Notes:
-    <p>
+<!--     <p>
       1.Remembers what user said earlier in the conversation;
+    </p> -->
+    <p>
+      1.Allows user to provide follow-up corrections. Trained to decline inappropriate requests;
     </p>
     <p>
-      2.Allows user to provide follow-up corrections. Trained to decline inappropriate requests;
+      2.May occasionally generate incorrect information, produce harmful instructions or biased content.
     </p>
     <p>
-      3.May occasionally generate incorrect information, produce harmful instructions or biased content.
+      本平台由gpt3.5驱动,每天可免费使用10次,独立key按所有权限使用
     </p>
     </div>
     <div class="login__form__username">
       <label for="input-username" class="login__form__username__label">
-          请输入你的key.
+          请输入你的key或任意字符体验.
       </label>
       <label v-if="errorMsg" class="login__form__username__label">
           Error: {{ errorMsg }}
@@ -35,6 +38,7 @@
       <input
         id="input-username"
         class="login__form__username__input"
+        placeholder="key-5566供测试"
         type="text"
         v-model.trim="userName"
         @keyup.enter="joinSubmit"
@@ -206,6 +210,7 @@ export default {
   text-align: center;
   text-decoration: none;
   display: inline-block;
+  border-radius: 5px;
   /*font-size: 16px;*/
 }
 </style>
