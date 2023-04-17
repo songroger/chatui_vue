@@ -35,7 +35,7 @@
         </p>
         <div class="chat__yourmessage__p">
           <p class="chat__yourmessage__paragraph">
-            {{ msg.msg }}
+          <v-md-preview :text="msg.msg"></v-md-preview>
           </p>
           <!-- <p class="chat__yourmessage__time">23:38</p> -->
         </div>
@@ -86,7 +86,7 @@ export default {
 .chat__mymessage__paragraph {
   margin: 0.4rem 0 0 1rem;
   border-radius: 20px 20px 0px 20px;
-  max-width: 180px;
+  max-width: 200px;
   background-color: #6bb657;
   color: #ffffff;
   padding: 0.8rem;
@@ -143,7 +143,7 @@ export default {
   margin: 0.4rem 1rem 0 0;
   border-radius: 0px 20px 20px 20px;
   background-color: #e0eee1;
-  max-width: 180px;
+  max-width: 200px;
   color: #414141;
   padding: 0.8rem;
   font-size: 14px;
@@ -153,5 +153,10 @@ export default {
   margin: 0;
   font-size: 12px;
   color: #9c9c9c;
+}
+
+.github-markdown-body {
+  padding: 0px !important;
+  max-width: 200px;
 }
 </style>
