@@ -7,11 +7,12 @@ const debug = process.env.NODE_ENV !== "production"
 
 const store = createStore({
   state: {
-    requestData: null
+    requestData: []
   },
   mutations: {
     setRequestData(state, requestData) {
       state.requestData = requestData;
+      localStorage.setItem("dialogue", JSON.stringify(requestData));
     },
     setPrivateKey(state, user) {
       localStorage.setItem("privateKey", JSON.stringify(user.key));
