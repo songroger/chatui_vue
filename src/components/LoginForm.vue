@@ -211,6 +211,7 @@ export default {
   text-decoration: none;
   display: inline-block;
   border-radius: 5px;
+  margin-left: 15px;
   /*font-size: 16px;*/
 }
 </style>
