@@ -2,9 +2,9 @@
   <div class="login__form">
     <label for="input-file" class="login__form__label">
       <img v-if="userImage" :src="userImage" class="login__form__avatar" />
-      <div class="login__form__avatar__overlay">
+      <!-- <div class="login__form__avatar__overlay">
         <img src="../assets/camera.svg" alt="" />
-      </div>
+      </div> -->
     </label>
     <!-- <input
       id="input-file"
@@ -57,7 +57,7 @@ import { mapActions} from "vuex";
 export default {
   data() {
     return {
-      userImage: "../assets/gpt.png",
+      userImage: "../assets/op.png",
       userName: "",
       key: "",
       errorMsg: ""
@@ -140,10 +140,10 @@ export default {
 }
 
 .login__form__avatar {
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
-  object-fit: cover;
+  height: 50px;
+  width: 200px;
+  /*border-radius: 50%;
+  object-fit: cover;*/
 }
 
 .login__form__avatar__overlay {
