@@ -6,9 +6,36 @@
         🍋Chatbot
       </span>
     </a>
-      <span class="chat__header__menu">
+      <span @click="showModal = true" class="chat__header__menu">
         ...
       </span>
+      <div class="popup-container" v-if="showModal" @close="showModal = false">
+        <div class="popup-header">
+          <h5 class="popup-title">📝使用说明</h5>
+          <div class="popup-close" @click="showModal = false"></div>
+        </div>
+        <div class="popup-content">
+          <p>1.每天可免费使用10次,独立key按所有权限使用;</p>
+          <p>2.如何获取独立key? 打赏作者：每1元获得100次;</p>
+          <p>3.如何打赏? 按如下微信二维码支付, 根据转账单号查询你的专属key;</p>
+          <p>4.打赏完之后, 获取key可能会有延迟, 如有紧急问题可直接微信联系.</p>
+        </div>
+        <div class="popup-divider">独立key查询</div>
+        <input
+          id="input-username"
+          class="popup-search"
+          placeholder="请输入转账单号"
+          type="text"
+          v-model.trim="userName"
+          @keyup.enter="joinSubmit"
+          required
+        />
+        <button class="login__button" @click="joinSubmit">search</button>
+        <h5>💰打赏码:</h5>
+        <img class="popup-image" src="/assets/recieve.png" alt="Responsive image">
+        <h5>🥂联系作者:</h5>
+        <img class="popup-image" src="/assets/qr.png" alt="Responsive image">
+      </div>
     </div>
     <chat-list :msgs="msgData"></chat-list>
     <chat-form @submitMessage="sendMessage"></chat-form>
@@ -26,6 +53,7 @@ export default {
     return {
       userData: null,
       key: null,
+      showModal: false,
     };
   },
   components: {
@@ -146,5 +174,76 @@ export default {
   color: #292929;
   float: right;
   font-weight: 700;
+}
+
+.popup-container {
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 24px 24px 0px 0px;
+  overflow-y: auto;
+  height: 600px; 
+}
+
+.popup-title {
+  text-align: center;
+}
+.popup-close {
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  cursor: pointer;
+}
+
+.popup-close::before,
+.popup-close::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 16px;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  background-color: #857d7d;
+}
+
+.popup-close::after {
+  transform: translateX(-50%) rotate(-45deg);
+}
+
+.popup-content {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.popup-image{
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border-style: none;
+  max-width: 100%;
+  height: auto;
+}
+.popup-search {
+  padding: 0.4rem;
+  border: none;
+  border-bottom: 1.5px solid #afb4b8;
+  text-align: center;
+}
+
+.popup-search:focus {
+  outline: none;
+}
+
+.popup-divider {
+    margin: 12px 0;
+    font-size: .75rem;
+    color: #999;
 }
 </style>

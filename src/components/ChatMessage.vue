@@ -90,7 +90,7 @@ export default {
   background-color: #6bb657;
   color: #ffffff;
   padding: 0.8rem;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .chat__mymessage__avartar {
