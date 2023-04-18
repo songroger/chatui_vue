@@ -32,9 +32,9 @@
         />
         <button class="login__button" @click="joinSubmit">search</button>
         <h5>💰打赏码:</h5>
-        <img class="popup-image" src="/assets/recieve.png" alt="Responsive image">
+        <img class="popup-image" src="../assets/recieve.png" alt="Responsive image">
         <h5>🥂联系作者:</h5>
-        <img class="popup-image" src="/assets/qr.png" alt="Responsive image">
+        <img class="popup-image" src="../assets/qr.png" alt="Responsive image">
       </div>
     </div>
     <chat-list :msgs="msgData"></chat-list>
