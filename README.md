@@ -1,3 +1,8 @@
+## preview
+
+![image](https://raw.githubusercontent.com/songroger/chatui_vue/master/preview.gif)
+
+
 ## Project setup
 ```
 pnpm install
