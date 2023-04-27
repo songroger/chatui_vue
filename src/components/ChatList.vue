@@ -17,7 +17,7 @@ export default {
   components: {
     ChatMessage,
   },
-  props: ["msgs"],
+  props: ["msgs", "place"],
 };
 </script>
 

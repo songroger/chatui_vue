@@ -3,7 +3,7 @@
     <input
       class="form__input"
       type="text"
-      placeholder="Ask anything you like.."
+      v-bind:placeholder="placeholder"
       v-model.trim="msg"
       @keyup.enter="submitMessage"
     />
@@ -40,6 +40,7 @@
 
 <script>
 export default {
+  props: ["placeholder"],
   data() {
     return {
       msg: "",

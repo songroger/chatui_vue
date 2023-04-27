@@ -1,7 +1,7 @@
 <template>
   <div class="chat">
     <div class="chat__header">
-    <a href=""> 
+    <a href="/#"> 
       <span class="chat__header__greetings">
         🍋Chatbot
       </span>
@@ -20,7 +20,11 @@
           <p>3.如何打赏? 按如下微信二维码支付, 根据转账单号查询你的专属key;</p>
           <p>4.打赏完之后, 获取key可能会有延迟, 如有紧急问题可直接微信联系.</p>
         </div>
-        <div class="popup-divider">独立key查询</div>
+        <div class="popup-divider">独立key查询
+        <template v-if="total">
+          (当前key剩余次数: {{ total }})
+        </template>
+        </div>
         <input
           id="input-username"
           class="popup-search"
@@ -38,7 +42,7 @@
       </div>
     </div>
     <chat-list :msgs="msgData"></chat-list>
-    <chat-form @submitMessage="sendMessage"></chat-form>
+    <chat-form @submitMessage="sendMessage" :placeholder="placeholder"></chat-form>
   </div>
 </template>
 
@@ -54,6 +58,8 @@ export default {
       userData: null,
       key: null,
       showModal: false,
+      total: 0,
+      placeholder: "Ask anything you like.."
     };
   },
   components: {
@@ -87,6 +93,14 @@ export default {
       pushMsgData: Constant.PUSH_MSG_DATA,
     }),
 
+    setPlaceholder() {
+      if (this.total == 0) {
+        this.placeholder = "Ask anything you like.. 当前为免费试用"
+      } else {
+        this.placeholder = "Ask anything you like.. 当前key剩余次数:" + this.total
+      }
+    },
+
     async sendMessage(msg) {
       try {
         this.pushMsgData({
@@ -114,6 +128,8 @@ export default {
                       msg: response.data.data.reply,
                     });
           // console.log(this.$store.state.msgData)
+          this.total = response.data.data.limit
+          this.setPlaceholder()
         }
         console.log(response.data.errorMsg)
       } catch (error) {
