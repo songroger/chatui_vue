@@ -15,7 +15,7 @@
           <div class="popup-close" @click="showModal = false"></div>
         </div>
         <div class="popup-content">
-          <p>1.每天可免费使用10次,独立key按所有权限使用;</p>
+          <p>1.每天有免费额度次数限制,独立key按所有权限使用;</p>
           <p>2.如何获取独立key? 打赏作者：每1元获得100次;</p>
           <p>3.如何打赏? 按如下微信二维码支付, 根据转账单号查询你的专属key;</p>
           <p>4.打赏完之后, 获取key可能会有延迟, 如有紧急问题可直接微信联系.</p>
@@ -30,11 +30,16 @@
           class="popup-search"
           placeholder="请输入转账单号"
           type="text"
-          v-model.trim="userName"
-          @keyup.enter="joinSubmit"
+          v-model="orderNo"
+          @keyup.enter="searchSubmit"
           required
         />
-        <button class="login__button" @click="joinSubmit">search</button>
+        <button class="login__button" @click="searchSubmit">search</button>
+        <template v-if="key">
+          <div class="popup-divider">你的key：
+            {{ key }}
+          </div>
+        </template>
         <h5>💰打赏码:</h5>
         <img class="popup-image" src="../assets/recieve.png" alt="Responsive image">
         <h5>🥂联系作者:</h5>
@@ -59,6 +64,7 @@ export default {
       key: null,
       showModal: false,
       total: 0,
+      orderNo:"",
       placeholder: "Ask anything you like.."
     };
   },
@@ -88,7 +94,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['sendPostRequest']),
+    ...mapActions(['sendPostRequest', 'login']),
     ...mapMutations({
       pushMsgData: Constant.PUSH_MSG_DATA,
     }),
@@ -128,13 +134,35 @@ export default {
                       msg: response.data.data.reply,
                     });
           // console.log(this.$store.state.msgData)
-          this.total = response.data.data.limit
+          this.total = response.data.data.limit || 0
           this.setPlaceholder()
         }
         console.log(response.data.errorMsg)
       } catch (error) {
         console.log(error);
       }
+      setTimeout(() => {
+        const element = document.getElementById("chat__body");
+        element.scrollTop = element.scrollHeight;
+      }, 0);
+    },
+
+    async searchSubmit() {
+      const userData = {
+        key: this.orderNo
+      };
+
+      if (userData.key) {
+        const response = await this.login(userData);
+
+        // console.log(response.data.data)
+        if (response.data.code != 0) {
+          this.$store.commit('setPrivateKey', {"key": response.data.data.key});
+        }
+        this.errorMsg = response.data.errorMsg
+        console.log(response.data.errorMsg)
+      }
+    },
 
     // sendMessage(msg) {
     //   const username = this.userData.userName;
@@ -154,11 +182,6 @@ export default {
     //     avatar: avatar,
     //   });
 
-      setTimeout(() => {
-        const element = document.getElementById("chat__body");
-        element.scrollTop = element.scrollHeight;
-      }, 0);
-    },
   },
 };
 </script>

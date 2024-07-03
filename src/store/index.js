@@ -5,6 +5,16 @@ import axios from 'axios'
 
 const debug = process.env.NODE_ENV !== "production"
 
+
+const axiosInstance = axios.create({
+  baseURL: '/api', // Change to your API base URL
+  // proxy: {
+  //   host: '127.0.0.1', // Change to your proxy host
+  //   port: 5173 // Change to your proxy port
+  // }
+});
+
+
 const store = createStore({
   state: {
     requestData: []
@@ -21,7 +31,7 @@ const store = createStore({
   actions: {
     async sendPostRequest(context, data) {
       try {
-        const response = await axios.post('/completion', data);
+        const response = await axiosInstance.post('/completion', data);
         return response;
       } catch (error) {
         throw error;
@@ -29,7 +39,7 @@ const store = createStore({
     },
     async login(context, userData) {
       try {
-        const response = await axios.post('/mykey', { orderId: userData.key});
+        const response = await axiosInstance.post('/mykey', { orderId: userData.key});
         // commit("setPrivateKey", userData);
         return response;
       } catch (error) {

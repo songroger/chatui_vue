@@ -25,7 +25,7 @@
       2.May occasionally generate incorrect information, produce harmful instructions or biased content.
     </p>
     <p>
-      本平台由gpt3.5驱动,每天可免费使用10次,独立key按所有权限使用
+      本平台由gpt3.5/4驱动,每天有一定免费资源可用,独立key按所有权限使用
     </p>
     </div>
     <div class="login__form__username">
