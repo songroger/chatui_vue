@@ -57,7 +57,7 @@ import { mapActions} from "vuex";
 export default {
   data() {
     return {
-      userImage: "../assets/op.png",
+      userImage: new URL(`../assets/op.png`, import.meta.url).href,
       userName: "",
       key: "",
       errorMsg: ""

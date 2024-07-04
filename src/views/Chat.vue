@@ -112,7 +112,7 @@ export default {
         this.pushMsgData({
                     from: {
                       name: "DevplaCalledMe",
-                      avatar: "/assets/user.png",
+                      avatar: new URL(`../assets/user.png`, import.meta.url).href,
                     },
                     msg,
                   });
@@ -129,7 +129,7 @@ export default {
           this.pushMsgData({
                       from: {
                         name: "",
-                        avatar: "/assets/gpt.png",
+                        avatar: new URL(`../assets/gpt.png`, import.meta.url).href,
                       },
                       msg: response.data.data.reply,
                     });

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite --force --mode dev --host 0.0.0.0",
-    "build": "tsc && vite build --mode prod"
+    "build": "tsc && vite build --mode production"
   },
   "dependencies": {
     "@kangc/v-md-editor": "^2.3.15",

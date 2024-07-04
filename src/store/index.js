@@ -7,7 +7,7 @@ const debug = process.env.NODE_ENV !== "production"
 
 
 const axiosInstance = axios.create({
-  baseURL: '/api', // Change to your API base URL
+  baseURL: import.meta.env.VITE_API_BASE_URL, // Change to your API base URL
   // proxy: {
   //   host: '127.0.0.1', // Change to your proxy host
   //   port: 5173 // Change to your proxy port
