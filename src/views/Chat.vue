@@ -41,11 +41,11 @@
           </div>
         </template>
         <div class="chat__option">
-          <label for="options">设置 gpt model:</label>
-          <select id="options" @change="handleSelectChange">
-            <option value="gpt-4o">gpt-4o</option>
-            <option value="gpt-4-turbo">gpt-4</option>
-            <option value="gpt-3.5-turbo">gpt-3.5</option>
+          <label>设置 gpt model:</label>
+          <select id="options" v-model="gptModel" @change="handleSelectChange">
+            <option v-for="item in option_data" :key="item.value" :label="item.label" :value="item.value">
+            {{ item.label }}
+            </option>
           </select>
         </div>
         <h5>💰打赏码:</h5>
@@ -74,8 +74,22 @@ export default {
       showModal: false,
       total: 0,
       orderNo:"",
-      gptModel: "gpt-4o",
-      placeholder: "Ask anything you like.."
+      gptModel: "gpt-4",
+      placeholder: "Ask anything you like..",
+      option_data:[
+                  {
+                      value: 'gpt-4o',
+                      label: 'gpt-4o'
+                  },
+                  {
+                      value: 'gpt-4',
+                      label: 'gpt-4'
+                  },
+                  {
+                      value: 'gpt-3.5',
+                      label: 'gpt-3.5'
+                  }
+              ]
     };
   },
   components: {
@@ -145,7 +159,7 @@ export default {
           // console.log(this.$store.state.requestData)
           this.pushMsgData({
                       from: {
-                        name: "",
+                        name: this.gptModel,
                         avatar: new URL(`../assets/gpt.png`, import.meta.url).href,
                       },
                       msg: response.data.data.reply,
@@ -154,7 +168,7 @@ export default {
           this.total = response.data.data.limit || 0
           this.setPlaceholder()
         }
-        console.log(response.data.errorMsg)
+        // console.log(response.data.errorMsg)
       } catch (error) {
         console.log(error);
       }
