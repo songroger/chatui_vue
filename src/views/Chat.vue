@@ -40,12 +40,21 @@
             {{ key }}
           </div>
         </template>
+        <div class="chat__option">
+          <label for="options">设置 gpt model:</label>
+          <select id="options" @change="handleSelectChange">
+            <option value="gpt-4o">gpt-4o</option>
+            <option value="gpt-4-turbo">gpt-4</option>
+            <option value="gpt-3.5-turbo">gpt-3.5</option>
+          </select>
+        </div>
         <h5>💰打赏码:</h5>
         <img class="popup-image" src="../assets/recieve.png" alt="Responsive image">
         <h5>🥂联系作者:</h5>
         <img class="popup-image" src="../assets/qr.png" alt="Responsive image">
       </div>
     </div>
+
     <chat-list :msgs="msgData"></chat-list>
     <chat-form @submitMessage="sendMessage" :placeholder="placeholder"></chat-form>
   </div>
@@ -65,6 +74,7 @@ export default {
       showModal: false,
       total: 0,
       orderNo:"",
+      gptModel: "gpt-4o",
       placeholder: "Ask anything you like.."
     };
   },
@@ -107,6 +117,12 @@ export default {
       }
     },
 
+    handleSelectChange(event) {
+      const selectedValue = event.target.value;
+      // console.log('Selected model:', selectedValue);
+      this.gptModel = selectedValue
+    },
+
     async sendMessage(msg) {
       try {
         this.pushMsgData({
@@ -121,7 +137,8 @@ export default {
                             "role": "user",
                             "content": msg
                             }],
-                  model: this.key
+                  key: this.key,
+                  model: this.gptModel
                           });
         if (response.data.code == 0) {
           this.$store.commit('setRequestData', response.data.data.messages);
@@ -213,6 +230,37 @@ export default {
   color: #292929;
   float: right;
   font-weight: 700;
+}
+
+.chat__option {
+  border: none;
+}
+
+.chat__option label {
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      display: block;
+      color: #333;
+    }
+
+.chat__option select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chat__option select:focus {
+  border-color: #007BFF;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+.chat__option select option {
+  padding: 10px;
 }
 
 .popup-container {
