@@ -43,7 +43,7 @@
         <div class="chat__option">
           <label>设置 gpt model:</label>
           <select id="options" v-model="gptModel" @change="handleSelectChange">
-            <option v-for="item in option_data" :key="item.value" :label="item.label" :value="item.value">
+            <option v-for="item in option_data" :value="item.value">
             {{ item.label }}
             </option>
           </select>
@@ -74,7 +74,7 @@ export default {
       showModal: false,
       total: 0,
       orderNo:"",
-      gptModel: "gpt-4",
+      gptModel: "gpt-4-turbo",
       placeholder: "Ask anything you like..",
       option_data:[
                   {
@@ -82,11 +82,11 @@ export default {
                       label: 'gpt-4o'
                   },
                   {
-                      value: 'gpt-4',
+                      value: 'gpt-4-turbo',
                       label: 'gpt-4'
                   },
                   {
-                      value: 'gpt-3.5',
+                      value: 'gpt-3.5-turbo',
                       label: 'gpt-3.5'
                   }
               ]
@@ -187,8 +187,9 @@ export default {
         const response = await this.login(userData);
 
         // console.log(response.data.data)
-        if (response.data.code != 0) {
+        if (response.data.code == 200) {
           this.$store.commit('setPrivateKey', {"key": response.data.data.key});
+          this.key = response.data.data.key
         }
         this.errorMsg = response.data.errorMsg
         console.log(response.data.errorMsg)

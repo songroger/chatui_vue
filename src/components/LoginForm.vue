@@ -38,7 +38,7 @@
       <input
         id="input-username"
         class="login__form__username__input"
-        placeholder="key-5566供测试"
+        placeholder="key-7788供测试"
         type="text"
         v-model.trim="userName"
         @keyup.enter="joinSubmit"
@@ -111,13 +111,14 @@ export default {
         const response = await this.login(userData);
 
         // console.log(response.data.data)
-        if (response.data.code != 0) {
-          this.$store.commit('setPrivateKey', userData);
-          this.$router.push({
-                            name: "chat",
-                            params: { userData: userData },
-                          });
+        if (response.data.code == 200) {
+          userData.key = response.data.data.key
         }
+        this.$store.commit('setPrivateKey', userData);
+        this.$router.push({
+                          name: "chat",
+                          params: { userData: userData },
+                        });
         this.errorMsg = response.data.errorMsg
         console.log(response.data.errorMsg)
       }
