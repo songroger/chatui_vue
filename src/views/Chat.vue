@@ -125,9 +125,9 @@ export default {
 
     setPlaceholder() {
       if (this.total == 0) {
-        this.placeholder = "Ask anything you like.. 当前为免费试用"
+        this.placeholder = "Ask anything you like.. 未登录"
       } else {
-        this.placeholder = "Ask anything you like.. 当前key剩余次数:" + this.total
+        this.placeholder = "Ask anything you like.. 剩余次数:" + this.total
       }
     },
 
