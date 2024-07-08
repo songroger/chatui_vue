@@ -107,20 +107,29 @@ export default {
       };
 
       if (userData.userName) {
-        // this.$store.dispatch("login", userData);
-        const response = await this.login(userData);
 
-        // console.log(response.data.data)
-        if (response.data.code == 200) {
-          userData.key = response.data.data.key
+        try {
+          // this.$store.dispatch("login", userData);
+          const response = await this.login(userData);
+
+          // console.log(response.data.data)
+          if (response.data && response.data.code == 200) {
+            userData.key = response.data.data.key
+          } else {
+            // this.errorMsg = response.data.errorMsg;
+            console.log("error")
+          }
+          this.$store.commit('setPrivateKey', userData);
+          this.$router.push({
+                            name: "chat",
+                            params: { userData: userData },
+                          });
+
+        } catch (error) {
+          // Log any errors that occur during the login process
+          console.error('Error during login:', error);
+          this.errorMsg = error.message || 'Failed to login';
         }
-        this.$store.commit('setPrivateKey', userData);
-        this.$router.push({
-                          name: "chat",
-                          params: { userData: userData },
-                        });
-        this.errorMsg = response.data.errorMsg
-        console.log(response.data.errorMsg)
       }
     },
   },

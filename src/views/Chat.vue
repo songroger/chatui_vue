@@ -151,8 +151,9 @@ export default {
     addChatMsg(msg) {
       if (msg) {
         this.chat_msgs.push(msg); // Append the new item to the list
-      };
-      console.log("empty msg")
+      } else {
+        console.log("empty msg");
+      }
     },
 
     async sendMessage(msg) {
