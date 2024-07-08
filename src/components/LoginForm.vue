@@ -117,7 +117,7 @@ export default {
             userData.key = response.data.data.key
           } else {
             // this.errorMsg = response.data.errorMsg;
-            console.log("error")
+            console.log("Invalid orderId")
           }
           this.$store.commit('setPrivateKey', userData);
           this.$router.push({
