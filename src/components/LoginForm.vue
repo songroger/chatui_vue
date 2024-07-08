@@ -1,11 +1,11 @@
 <template>
   <div class="login__form">
-    <label for="input-file" class="login__form__label">
+    <!-- <label for="input-file" class="login__form__label"> -->
       <img v-if="userImage" :src="userImage" class="login__form__avatar" />
       <!-- <div class="login__form__avatar__overlay">
         <img src="../assets/camera.svg" alt="" />
       </div> -->
-    </label>
+    <!-- </label> -->
     <!-- <input
       id="input-file"
       type="file"
@@ -32,9 +32,9 @@
       <label for="input-username" class="login__form__username__label">
           请输入你的key或任意字符体验.
       </label>
-      <label v-if="errorMsg" class="login__form__username__label">
+      <!-- <label v-if="errorMsg" class="login__form__username__label">
           Error: {{ errorMsg }}
-      </label>
+      </label> -->
       <input
         id="input-username"
         class="login__form__username__input"

@@ -1,6 +1,7 @@
 <template>
   <div class="form">
     <input
+      id="input-chat-msg"
       class="form__input"
       type="text"
       v-bind:placeholder="placeholder"

@@ -41,7 +41,7 @@
           </div>
         </template>
         <div class="chat__option">
-          <label>设置 gpt model:</label>
+          <h5>🔨设置 gpt model:</h5>
           <select id="options" v-model="gptModel" @change="handleSelectChange">
             <option v-for="item in option_data" :value="item.value">
             {{ item.label }}
@@ -52,6 +52,9 @@
         <img class="popup-image" src="../assets/recieve.png" alt="Responsive image">
         <h5>🥂联系作者:</h5>
         <img class="popup-image" src="../assets/qr.png" alt="Responsive image">
+        <div v-if="error" class="error-notice">
+          <p>{{ error }}</p>
+        </div>
       </div>
     </div>
 
@@ -71,11 +74,15 @@ export default {
     return {
       userData: null,
       key: null,
+      error: null,
       showModal: false,
       total: 0,
       orderNo:"",
       gptModel: "gpt-4-turbo",
       placeholder: "Ask anything you like..",
+      chat_msgs: [],
+      sys_msg: {Role: "system",
+                Content: "You are ChatGPT, Answer as concisely as possible."},
       option_data:[
                   {
                       value: 'gpt-4o',
@@ -135,6 +142,17 @@ export default {
       const selectedValue = event.target.value;
       // console.log('Selected model:', selectedValue);
       this.gptModel = selectedValue
+      this.error = "Success";
+        setTimeout(() => {
+          this.error = null;
+        }, 1000);
+    },
+
+    addChatMsg(msg) {
+      if (msg) {
+        this.chat_msgs.push(msg); // Append the new item to the list
+      };
+      console.log("empty msg")
     },
 
     async sendMessage(msg) {
@@ -146,11 +164,15 @@ export default {
                     },
                     msg,
                   });
+        if (this.chat_msgs.length === 0) {
+            this.addChatMsg(this.sys_msg);
+        };
+        this.addChatMsg({
+                    "role": "user",
+                    "content": msg
+                    });
         const response = await this.sendPostRequest({
-                  messages: [{
-                            "role": "user",
-                            "content": msg
-                            }],
+                  messages: this.chat_msgs,
                   key: this.key,
                   model: this.gptModel
                           });
@@ -164,8 +186,12 @@ export default {
                       },
                       msg: response.data.data.reply,
                     });
+          this.addChatMsg({
+                    "role": "system",
+                    "content": response.data.data.reply
+                    });
           // console.log(this.$store.state.msgData)
-          this.total = response.data.data.limit || 0
+          this.total = response.data.data.limit || 0;
           this.setPlaceholder()
         }
         // console.log(response.data.errorMsg)
@@ -190,9 +216,13 @@ export default {
         if (response.data.code == 200) {
           this.$store.commit('setPrivateKey', {"key": response.data.data.key});
           this.key = response.data.data.key
+          this.total = response.data.data.balance || 0;
+        } else {
+          this.error = response.data.data;
+          setTimeout(() => {
+            this.error = null;
+          }, 1500);
         }
-        this.errorMsg = response.data.errorMsg
-        console.log(response.data.errorMsg)
       }
     },
 
@@ -347,5 +377,19 @@ export default {
     margin: 12px 0;
     font-size: .75rem;
     color: #999;
+}
+
+.error-notice {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  color: #155724;
+  background-color: #d4edda;
+  padding: 3px 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 </style>
