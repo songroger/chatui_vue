@@ -1,5 +1,6 @@
 <template>
   <div class="chat">
+    <button class="floating-button" @click="clearChat">Clear</button>
     <div class="chat__header">
     <a href="/#"> 
       <span class="chat__header__greetings">
@@ -130,6 +131,10 @@ export default {
       pushMsgData: Constant.PUSH_MSG_DATA,
     }),
 
+    clearChat() {
+      this.chat_msgs = [];
+    },
+
     setPlaceholder() {
       if (this.total == 0) {
         this.placeholder = "Ask anything you like.. 未登录"
@@ -254,6 +259,23 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.floating-button {
+  position: fixed;
+  top: 6.0rem;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #dfce8bf2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+.floating-button:hover {
+    background-color: #0056b3;
 }
 
 .chat__header {
