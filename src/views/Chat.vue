@@ -1,6 +1,6 @@
 <template>
   <div class="chat">
-    <button class="floating-button" @click="clearChat">Clear</button>
+    <button class="floating-button" @click="clearChat">clear</button>
     <div class="chat__header">
     <a href="/#"> 
       <span class="chat__header__greetings">
@@ -266,16 +266,18 @@ export default {
   top: 6.0rem;
   right: 20px;
   padding: 10px 20px;
-  background-color: #dfce8bf2;
-  color: white;
+  background-color: #fff0f1;
+  color: #60605b;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    }
+  font-family: "Golden Plains - Demo";
+}
 
 .floating-button:hover {
-    background-color: #0056b3;
+    background-color: #e6ccab;
+    border-radius: 5px;
 }
 
 .chat__header {

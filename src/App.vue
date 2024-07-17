@@ -3,7 +3,7 @@
     <router-view class="container" />
     <div class="app__brand">
       <p @click="moveToHome" class="app__logo">Roger</p>
-      <div class="app__copyright">ⓒ 2023. All Right Reserved.</div>
+      <div class="app__copyright">ⓒ 2023-24. All Right Reserved.</div>
     </div>
   </div>
 </template>
