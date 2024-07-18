@@ -277,6 +277,10 @@ export default {
   font-family: "Golden Plains - Demo";
 }
 
+.floating-button:active {
+  transform: scale(0.95);
+}
+
 .floating-button:hover {
     background-color: #e6ccab;
     border-radius: 5px;
