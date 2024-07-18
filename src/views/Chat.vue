@@ -50,7 +50,7 @@
           </select>
         </div>
         <h5>💰打赏码:</h5>
-        <img class="popup-image" src="../assets/recieve.png" alt="Responsive image">
+        <img class="popup-image" src="../assets/receive.png" alt="Responsive image">
         <h5>🥂联系作者:</h5>
         <img class="popup-image" src="../assets/qr.png" alt="Responsive image">
         <div v-if="error" class="error-notice">
