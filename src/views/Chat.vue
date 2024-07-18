@@ -129,10 +129,12 @@ export default {
     ...mapActions(['sendPostRequest', 'login']),
     ...mapMutations({
       pushMsgData: Constant.PUSH_MSG_DATA,
+      clearMsgData: Constant.CLEAR_MSG_DATA
     }),
 
     clearChat() {
       this.chat_msgs = [];
+      this.clearMsgData();
     },
 
     setPlaceholder() {
