@@ -94,8 +94,8 @@ export default {
                       label: 'gpt-4'
                   },
                   {
-                      value: 'gpt-3.5-turbo',
-                      label: 'gpt-3.5'
+                      value: 'gpt-4o-mini',
+                      label: 'gpt-4omini'
                   }
               ]
     };
