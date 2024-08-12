@@ -79,7 +79,7 @@ export default {
       showModal: false,
       total: 0,
       orderNo:"",
-      gptModel: "gpt-4-turbo",
+      gptModel: "gpt-4o-mini",
       placeholder: "Ask anything you like..",
       chat_msgs: [],
       sys_msg: {Role: "system",
