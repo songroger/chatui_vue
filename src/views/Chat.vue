@@ -96,6 +96,14 @@ export default {
                   {
                       value: 'gpt-4o-mini',
                       label: 'gpt-4omini'
+                  },
+                  {
+                      value: 'o1-mini',
+                      label: 'o1-mini'
+                  },
+                  {
+                      value: 'o1-preview',
+                      label: 'o1-preview'
                   }
               ]
     };
